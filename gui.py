@@ -115,17 +115,19 @@ def iter_tensorboard_python_candidates():
         if candidate is None:
             return
         path = Path(candidate)
+        if not path.exists():
+            return
         try:
             resolved = path.resolve()
         except Exception:
             resolved = path
-        if not resolved.exists():
-            return
-        key = str(resolved).lower()
-        if key in seen:
+        key = str(path).lower()
+        resolved_key = str(resolved).lower()
+        if key in seen or resolved_key in seen:
             return
         seen.add(key)
-        yield str(resolved)
+        seen.add(resolved_key)
+        yield str(path)
 
     yield from register(sys.executable)
 
