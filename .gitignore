@@ -74,3 +74,4 @@ A启动新前端UI.bat
 
 # Local deployment runtime and documentation
 /.local-runtime/
+/.envrc
