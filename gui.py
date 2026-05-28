@@ -72,8 +72,19 @@ def path_is_within(path: Path, parent: Path) -> bool:
 
 
 def using_project_local_main_python() -> bool:
-    executable = Path(sys.executable).resolve()
-    return any(path_is_within(executable, root) for root in PROJECT_LOCAL_MAIN_PYTHON_ROOTS)
+    executable = Path(os.path.abspath(sys.executable))
+    executable_candidates = [executable]
+    try:
+        resolved_executable = executable.resolve()
+        if resolved_executable != executable:
+            executable_candidates.append(resolved_executable)
+    except Exception:
+        pass
+    return any(
+        path_is_within(candidate, root)
+        for candidate in executable_candidates
+        for root in PROJECT_LOCAL_MAIN_PYTHON_ROOTS
+    )
 
 
 def ensure_project_local_main_python():
@@ -90,7 +101,7 @@ def ensure_project_local_main_python():
     raise RuntimeError(
         "This build is locked to project-local Python by default. "
         "Launch it via run_gui.ps1/run_gui.sh after preparing one of the supported runtime folders under ./env/ (preferred) or the repo root: "
-        "./python, ./python_blackwell, ./python_xpu_intel, ./python_xpu_intel_sage, ./python_rocm_amd, ./python_sagebwd_nvidia, ./python-sageattention, or ./venv. "
+        "./python, ./python_blackwell, ./python_xpu_intel, ./python_xpu_intel_sage, ./python_rocm_amd, ./python_sagebwd_nvidia, ./python-sageattention, ./venv, ./.venv, or ./.local-runtime/venv. "
         "Legacy ./python-sagebwd-nvidia and ./python_sageattention folders are also accepted in either location. "
         "For development only, set MIKAZUKI_ALLOW_SYSTEM_PYTHON=1 to override this guard intentionally."
     )

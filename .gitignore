@@ -71,3 +71,6 @@ A启动新前端UI.bat
 /cleanroom_reports
 /cleanroom_staging
 /.tmp
+
+# Local deployment runtime and documentation
+/.local-runtime/

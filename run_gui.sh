@@ -39,7 +39,7 @@ resolve_runtime_dir() {
 
 portable_runtime_dir="$(resolve_runtime_dir "python" "python")"
 portable_python="$portable_runtime_dir/bin/python"
-venv_runtime_dir="$(resolve_runtime_dir "venv" "venv")"
+venv_runtime_dir="$(resolve_runtime_dir "venv" "venv" ".venv" ".local-runtime/venv")"
 venv_python="$venv_runtime_dir/bin/python"
 portable_marker="$portable_runtime_dir/.deps_installed"
 venv_marker="$venv_runtime_dir/.deps_installed"

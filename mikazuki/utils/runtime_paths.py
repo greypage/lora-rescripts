@@ -19,7 +19,7 @@ RUNTIME_DIRECTORY_ALIASES: dict[str, tuple[str, ...]] = {
     "sageattention2": ("python-sageattention2", "python_sageattention2"),
     "spargeattn2": ("python-spargeattn2", "python_spargeattn2"),
     "tageditor": ("python_tageditor",),
-    "venv": ("venv",),
+    "venv": ("venv", ".venv", ".local-runtime/venv"),
     "venv-tageditor": ("venv-tageditor",),
 }
 PROJECT_LOCAL_MAIN_RUNTIME_NAMES: tuple[str, ...] = (
